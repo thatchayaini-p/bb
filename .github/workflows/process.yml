@@ -1,0 +1,16 @@
+# .github/workflows/process.yml
+name: Process
+
+on:
+  workflow_run:
+    workflows: ["Build"]
+    types: [completed]
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: result
+      - run: cat result.txt
