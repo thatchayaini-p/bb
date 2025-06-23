@@ -1,0 +1,16 @@
+# .github/workflows/trigger.yml
+name: Trigger Workflow
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl -X POST https://api.github.com/repos/<OWNER>/<REPO>/dispatches \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -d '{"event_type":"custom-trigger"}'
